@@ -108,7 +108,7 @@ router.post("/login", (req, res, next) => {
           algorithm: "HS256",
           expiresIn: "6h",
         });
-
+        // req.user = payload;
         // Send the token as the response
         res.status(200).json({ authToken: authToken });
       } else {
