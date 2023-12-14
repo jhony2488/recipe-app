@@ -3,14 +3,22 @@ import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import Logout from "./pages/Logout";
+import RecipeCreate from "./pages/RecipeCreate";
+import RecipeList from "./pages/RecipeList";
 import HeaderNavbar from "./components/Nav/HeaderNavbar";
 import FooterNavbar from "./components/Nav/FooterNavbar";
+import "bootstrap/dist/css/bootstrap.min.css";
+
 function App() {
   const routes = [
     { path: "/", element: <Home /> },
     { path: "/dashboard", element: <Dashboard /> },
     { path: "/register", element: <Register /> },
     { path: "/login", element: <Login /> },
+    { path: "/logout", element: <Logout /> },
+    { path: "/recipes", element: <RecipeList /> },
+    { path: "/recipe/create", element: <RecipeCreate /> },
   ];
 
   return (

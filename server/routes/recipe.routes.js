@@ -3,13 +3,20 @@ const router = express.Router();
 const Recipe = require("../models/Recipe.model");
 const { isAuthenticated } = require("../middleware/jwt.middleware");
 
-// Middleware to authenticate user (assuming you have one)
-// const authMiddleware = require('../middleware/authMiddleware');
+router.get("/", async (req, res) => {
+  try {
+    const recipes = await Recipe.find();
+    res.json(recipes);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error fetching recipe", error: error.message });
+  }
+});
 
-// Function to create a new recipe
 router.post("/", isAuthenticated, async (req, res) => {
   try {
-    const { title, ingredients, preparationSteps, categories, images } =
+    const { title, ingredients, preparationSteps, categories, image } =
       req.body;
 
     const newRecipe = new Recipe({
@@ -18,7 +25,7 @@ router.post("/", isAuthenticated, async (req, res) => {
       preparationSteps,
       author: req.payload._id,
       categories,
-      images,
+      image,
     });
 
     await newRecipe.save();
@@ -32,7 +39,6 @@ router.post("/", isAuthenticated, async (req, res) => {
   }
 });
 
-// Function to get a specific recipe
 router.get("/:recipeId", async (req, res) => {
   try {
     const recipeId = req.params.recipeId;
@@ -49,7 +55,6 @@ router.get("/:recipeId", async (req, res) => {
   }
 });
 
-// Function to update a recipe
 router.put("/:recipeId", async (req, res) => {
   try {
     const recipeId = req.params.recipeId;
@@ -70,22 +75,13 @@ router.put("/:recipeId", async (req, res) => {
   }
 });
 
-// Function to delete a recipe
 router.delete("/:recipeId", async (req, res) => {
   try {
     const recipeId = req.params.recipeId;
-    const userId = req.payload._id;
 
     const recipe = await Recipe.findById(recipeId);
-
     if (!recipe) {
       return res.status(404).json({ message: "Recipe not found" });
-    }
-
-    if (recipe.author.toString() !== userId) {
-      return res
-        .status(403)
-        .json({ message: "Unauthorized to delete this recipe" });
     }
 
     await Recipe.findByIdAndDelete(recipeId);

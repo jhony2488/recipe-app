@@ -10,19 +10,15 @@ const recipeSchema = new mongoose.Schema(
       trim: true, // Trims whitespace from the title
     },
     // Ingredients for the recipe, stored as an array of strings
-    ingredients: [
-      {
-        type: String,
-        required: true,
-      },
-    ],
+    ingredients: {
+      type: String,
+      required: true,
+    },
     // Preparation steps, stored as an array of strings
-    preparationSteps: [
-      {
-        type: String,
-        required: true,
-      },
-    ],
+    preparationSteps: {
+      type: String,
+      required: true,
+    },
     // Author of the recipe, referencing the User model
     author: {
       type: mongoose.Schema.Types.ObjectId, // Reference to a User document
@@ -33,21 +29,15 @@ const recipeSchema = new mongoose.Schema(
     categories: [
       {
         type: String,
-        trim: true,
+        required: true,
       },
     ],
-    // Optional field for date of creation if you want to override automatic timestamps
-    dateOfCreation: {
-      type: Date,
-      default: Date.now, // Defaults to the current date and time
-    },
+
     // Optional images or links, stored as an array of strings
-    images: [
-      {
-        type: String, // Could be URLs to images
-        trim: true,
-      },
-    ],
+    image: {
+      type: String, // Could be URLs to images
+      trim: true,
+    },
   },
   { timestamps: true }
 ); // Adds createdAt and updatedAt fields automatically

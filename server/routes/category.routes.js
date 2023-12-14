@@ -3,6 +3,18 @@ const router = express.Router();
 const Category = require("../models/Category.model");
 
 // Function to add a new category
+
+router.get("/", async (req, res) => {
+  try {
+    const categories = await Category.find();
+    res.status(201).json(categories);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error adding category", error: error.message });
+  }
+});
+
 router.post("/categories", async (req, res) => {
   try {
     const { name, description } = req.body;
