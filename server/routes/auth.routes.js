@@ -19,7 +19,6 @@ const saltRounds = 10;
 // POST /auth/signup  - Creates a new user in the database
 router.post("/register", (req, res, next) => {
   const { email, password, username } = req.body;
-
   // Check if email or password or name are provided as empty strings
   if (email === "" || password === "" || username === "") {
     res.status(400).json({ message: "Provide email, password and name" });
@@ -108,7 +107,7 @@ router.post("/login", (req, res, next) => {
           algorithm: "HS256",
           expiresIn: "6h",
         });
-
+        // req.user = payload;
         // Send the token as the response
         res.status(200).json({ authToken: authToken });
       } else {
