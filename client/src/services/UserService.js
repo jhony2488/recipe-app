@@ -3,7 +3,7 @@ import axios from "axios";
 class UserService {
   constructor() {
     this.api = axios.create({
-      baseURL: `${import.meta.env.VITE_SERVER_URL}/api`,
+      baseURL: `https://recipe-app-0ddk.onrender.com/api`,
     });
 
     this.api.interceptors.request.use((config) => {
@@ -20,7 +20,7 @@ class UserService {
   };
 
   getUserProfile = (userId) => {
-    return this.api.get(`/users/${userId}`); // Use this.api.get instead of axios.get
+    return axios.get(`https://recipe-app-0ddk.onrender.com/users/${userId}`); // Use this.api.get instead of axios.get
   };
 }
 

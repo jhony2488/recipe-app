@@ -10,7 +10,7 @@ function RecipeList() {
     })
 
   useEffect(() => {
-    axios.get("http://localhost:4000/recipe").then(response => {
+    axios.get("https://recipe-app-0ddk.onrender.com/recipe").then(response => {
       setRecipes(response.data);
     });
   }, []);

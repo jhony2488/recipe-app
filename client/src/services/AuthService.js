@@ -4,11 +4,11 @@ class AuthService {
 
 
   login = (email, password) => {
-    return axios.post(`http://localhost:4000/auth/login`, { email, password });
+    return axios.post(`https://recipe-app-0ddk.onrender.com/auth/login`, { email, password });
   };
 
   register = (username, email, password) => {
-    return this.api.post(`/register`, {
+    return axios.post(`https://recipe-app-0ddk.onrender.com/register`, {
       username,
       email,
       password,

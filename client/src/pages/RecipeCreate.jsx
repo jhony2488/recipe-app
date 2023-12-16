@@ -16,7 +16,7 @@ function CreateRecipe() {
 
     axios
       .post(
-        "http://localhost:4000/recipe",
+        "https://recipe-app-0ddk.onrender.com/recipe",
         {
           title,
           ingredients,
@@ -33,8 +33,7 @@ function CreateRecipe() {
           }
         }
       )
-      .then(response => {
-        console.log(response);
+      .then(() => {
         navigate("/recipes");
       });
   };
