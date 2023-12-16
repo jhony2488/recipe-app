@@ -19,8 +19,6 @@ router.post("/", isAuthenticated, async (req, res) => {
     const { title, ingredients, preparationSteps, categories, image,idUser } =
       req.body;
 
-      console.log( { title, ingredients, preparationSteps, categories, image,idUser })
-
     const newRecipe = new Recipe({
       title,
       ingredients,
