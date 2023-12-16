@@ -9,6 +9,7 @@ export default function Logout() {
     localStorage.removeItem("authToken");
     setUser(null);
     navigate("/login");
+    location.reload();
   }, [navigate]);
   return <div>loading...</div>;
 }

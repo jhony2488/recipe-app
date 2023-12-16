@@ -23,8 +23,8 @@ export default function Register() {
   };
   return (
     <Container>
-      <h2>Sign Up</h2>
-      <Form onSubmit={handleSignup}>
+      <h2 style={{ fontSize: '32px','text-align': 'center', marginTop: '30px',marginBottom: '32px' }}>Sign Up</h2>
+      <Form onSubmit={handleSignup} style={{ display: "grid", gap: '12px', justifyItems: 'center', marginBottom:'32px' }}>
         <Form.Group controlId="formBasicUsername">
           <Form.Label>Username</Form.Label>
           <Form.Control
@@ -55,7 +55,7 @@ export default function Register() {
           />
         </Form.Group>
 
-        <Button variant="primary" type="submit">
+        <Button style={{ marginTop:'16px', width: '200px', borderRadius: '5px'  }}  variant="primary" type="submit">
           Sign Up
         </Button>
         {errorMessage && <p className="text-danger">{errorMessage}</p>}

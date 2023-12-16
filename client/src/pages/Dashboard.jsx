@@ -3,7 +3,7 @@ import { useAuthContext } from "../context/AuthContext";
 import UserService from "../services/UserService";
 
 export default function Dashboard() {
-  const { user, setUser } = useAuthContext();
+  const { setUser } = useAuthContext();
 
   useEffect(() => {
     UserService.verify()
@@ -11,5 +11,7 @@ export default function Dashboard() {
       .catch((err) => console.error(err));
   }, [setUser]);
 
-  return <div> {user?.email} </div>;
+  return <div style={{height: '100vh'}}> 
+  <h1 style={{textAlign: 'center'}}>Dashoboard</h1>
+   </div>;
 }

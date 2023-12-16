@@ -1,14 +1,10 @@
 import axios from "axios";
 
 class AuthService {
-  constructor() {
-    this.api = axios.create({
-      baseURL: `${import.meta.env.VITE_SERVER_URL}/auth`,
-    });
-  }
+
 
   login = (email, password) => {
-    return this.api.post(`/login`, { email, password });
+    return axios.post(`http://localhost:4000/auth/login`, { email, password });
   };
 
   register = (username, email, password) => {
