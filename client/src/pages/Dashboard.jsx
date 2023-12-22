@@ -25,8 +25,9 @@ export default function Dashboard() {
     query: "(max-width: 900px)"
   });
 
+  const idUser = localStorage.getItem("AuthUserId");
+
   const getRecipes = async () => {
-    const idUser = localStorage.getItem("AuthUserId");
     await axios
       .get("https://recipe-app-0ddk.onrender.com/recipe")
       .then(response => {
@@ -201,36 +202,37 @@ export default function Dashboard() {
                       );
                     })}
                   </p>
-
-                  <div
-                    style={{
-                      display: "flex",
-                      gap: "12px",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      cursor: "pointer"
-                    }}
-                  >
-                    <Pencil
-                      size={32}
-                      onClick={() => {
-                        localStorage.setItem(
-                          "recipeEdit",
-                          JSON.stringify(recipe)
-                        );
-                        setTimeout(() => {
-                          navigate("/recipe/edit/" + recipe._id);
-                        }, 600);
+                  {idUser === recipe.author && (
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "12px",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        cursor: "pointer"
                       }}
-                    />{" "}
-                    <Trash
-                      color={"red"}
-                      onClick={() => {
-                        removeRecipes(recipe._id);
-                      }}
-                      size={32}
-                    />
-                  </div>
+                    >
+                      <Pencil
+                        size={32}
+                        onClick={() => {
+                          localStorage.setItem(
+                            "recipeEdit",
+                            JSON.stringify(recipe)
+                          );
+                          setTimeout(() => {
+                            navigate("/recipe/edit/" + recipe._id);
+                          }, 600);
+                        }}
+                      />{" "}
+                      <Trash
+                        color={"red"}
+                        onClick={() => {
+                          removeRecipes(recipe._id);
+                        }}
+                        size={32}
+                      />
+                    </div>
+                  )}
                 </li>
               ))
             : recipes.map(recipe => (
@@ -292,35 +294,38 @@ export default function Dashboard() {
                       );
                     })}
                   </p>
-                  <div
-                    style={{
-                      display: "flex",
-                      gap: "12px",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      cursor: "pointer"
-                    }}
-                  >
-                    <Pencil
-                      size={32}
-                      onClick={() => {
-                        localStorage.setItem(
-                          "recipeEdit",
-                          JSON.stringify(recipe)
-                        );
-                        setTimeout(() => {
-                          navigate("/recipe/edit/" + recipe._id);
-                        }, 600);
+                  {idUser === recipe.author && (
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "12px",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        cursor: "pointer"
                       }}
-                    />{" "}
-                    <Trash
-                      color={"red"}
-                      onClick={() => {
-                        removeRecipes(recipe._id);
-                      }}
-                      size={32}
-                    />
-                  </div>
+                    >
+                      <Pencil
+                        size={32}
+                        onClick={() => {
+                          localStorage.setItem(
+                            "recipeEdit",
+                            JSON.stringify(recipe)
+                          );
+                          setTimeout(() => {
+                            navigate("/recipe/edit/" + recipe._id);
+                          }, 600);
+                        }}
+                      />{" "}
+                      <Trash
+                        color={"red"}
+                        onClick={() => {
+                          removeRecipes(recipe._id);
+                        }}
+                        size={32}
+                      />
+                    </div>
+                  )}
+                 
                 </li>
               ))}
         </ul>
