@@ -22,9 +22,9 @@ export default function Register() {
     }
   };
   return (
-    <Container>
+    <Container style={{ minHeight: '82vh'}}>
       <h2 style={{ fontSize: '32px','text-align': 'center', marginTop: '30px',marginBottom: '32px' }}>Sign Up</h2>
-      <Form onSubmit={handleSignup} style={{ display: "grid", gap: '12px', justifyItems: 'center', marginBottom:'32px' }}>
+      <Form onSubmit={handleSignup} style={{ display: "grid", gap: '12px', justifyItems: 'center', marginBottom:'32px', }}>
         <Form.Group controlId="formBasicUsername">
           <Form.Label>Username</Form.Label>
           <Form.Control
