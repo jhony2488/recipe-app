@@ -1,112 +1,219 @@
-/* eslint-disable react/no-unescaped-entities */
-// import { Container, Row, Col, Card, Button } from "react-bootstrap";
-// import { Link } from "react-router-dom";
-
-// export default function Home() {
-//   return (
-//     <Container className="py-5">
-//       <Link to="/recipe/create">create recipe</Link>
-//       <Row className="mb-4">
-//         <Col>
-//           <h1>Welcome to Recipe App</h1>
-//           <p className="lead">
-//             Discover and share amazing recipes from around the world.
-//           </p>
-//         </Col>
-//       </Row>
-
-//       <Row></Row>
-//         <Col md={6} className="mb-4">
-//           <Card className="h-100">
-//             <Card.Img variant="top" src="https://via.placeholder.com/500x300" />
-//             <Card.Body>
-//               <Card.Title>Featured Recipe</Card.Title>
-//               <Card.Text>
-//                 Explore this week's featured recipe and add a new twist to your
-//                 meal plans.
-//               </Card.Text>
-//               <Button variant="primary">Learn More</Button>
-//             </Card.Body>
-//           </Card>
-//         </Col>
-//         <Col md={6} className="mb-4">
-//           <Card className="h-100">
-//             <Card.Img variant="top" src="https://via.placeholder.com/500x300" />
-//             <Card.Body>
-//               <Card.Title>Join Our Community</Card.Title>
-//               <Card.Text>
-//                 Share your own recipes and connect with food enthusiasts from
-//                 around the globe.
-//               </Card.Text>
-//               <Button variant="primary">Sign Up</Button>
-//             </Card.Body>
-//           </Card>
-//         </Col>
-//       </Row>
-//     </Container>
-//   );
-// }
-
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { Container, Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import {} from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useMediaQuery } from "react-responsive";
+import axios from "axios";
 
 export default function Home() {
+  const [recipes, setRecipes] = useState([]);
+  const [recipesFilter, setRecipesFilter] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [category, setCategory] = useState("");
+
   const navigate = useNavigate();
+
+  const isMobile = useMediaQuery({
+    query: "(max-width: 340px)"
+  });
+
+  const isMobileOrTablet = useMediaQuery({
+    query: "(max-width: 900px)"
+  });
+
+  const getRecipes = async () => {
+    await axios
+      .get("https://recipe-app-0ddk.onrender.com/recipe")
+      .then(response => {
+        setRecipes(response.data);
+        const itemsCategories = response.data.flatMap(
+          objeto => objeto.categories
+        );
+
+        const itemsVerify = new Set(itemsCategories);
+
+        setCategories([...itemsVerify]);
+      });
+  };
+
+  useEffect(() => {
+    getRecipes();
+  }, []);
+
+
+  useEffect(() => {
+    if (category != "") {
+      setRecipesFilter(
+        recipes.filter(item => {
+          return item.categories.includes(category);
+        })
+      );
+    }
+    else{
+      setRecipesFilter([])
+      getRecipes();
+    }
+  }, [category]);
+
   return (
     <Container className="py-5">
-      <Link to="/recipe/create">create recipe</Link>
-      <Row className="mb-4">
-        <Col>
-          <h1>Welcome to Recipe App</h1>
-          <p className="lead">
-            Discover and share amazing recipes from around the world.
-          </p>
-        </Col>
-      </Row>
+      <Link to="/recipe/create">Create Recipe</Link>
+      <Form.Select
+        aria-label="Default select example"
+        onChange={event => setCategory(event.target.value)}
+        style={{marginTop: "32px", width: isMobileOrTablet ? "95%" :  "40%"}}
+      >
+        <option value="">Open this filter recipes for category</option>
+        {categories &&
+          categories?.map((item, key) => {
+            return (
+              <option key={key} value={item}>
+                {item}
+              </option>
+            );
+          })}
+      </Form.Select>
+      <>
+        <h2
+          style={{
+            fontSize: "32px",
+            "text-align": "center",
+            marginTop: "30px",
+            marginBottom: "32px",
+          }}
+        >
+          {" "}
+          Recipe List{" "}
+        </h2>
+        <ul
+          style={{
+            display: "flex",
+            "flex-wrap": "wrap",
+            gap: "12px",
+            marginBottom: "32px",
+            "min-height": "80vh"
+          }}
+        >
+          {recipesFilter.length > 0 ? recipesFilter.map(recipe => (
+            <li
+              key={recipe._id}
+              onClick={async () => {
+                const filterData = await recipes.filter(item => {
+                  return item._id === recipe._id;
+                });
 
-      <Row>
-        <Col md={6} className="mb-4">
-          <Card className="h-100">
-            <Card.Img variant="top" src="https://via.placeholder.com/500x300" />
-            <Card.Body>
-              <Card.Title>Featured Recipe</Card.Title>
-              <Card.Text>
-                Explore this week's featured recipe and add a new twist to your
-                meal plans.
-              </Card.Text>
-              <Button
-                variant="primary"
-                onClick={() => {
-                  navigate("/login");
-                }}
-              >
-                Learn More
-              </Button>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col md={6} className="mb-4">
-          <Card className="h-100">
-            <Card.Img variant="top" src="https://via.placeholder.com/500x300" />
-            <Card.Body>
-              <Card.Title>Join Our Community</Card.Title>
-              <Card.Text>
-                Share your own recipes and connect with food enthusiasts from
-                around the globe.
-              </Card.Text>
-              <Button
-                variant="primary"
-                onClick={() => {
-                  navigate("/register");
-                }}
-              >
-                Sign Up
-              </Button>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
+                await localStorage.setItem(
+                  "recipe",
+                  JSON.stringify(filterData[0])
+                );
+                setTimeout(() => {
+                  navigate("/recipe/" + recipe._id);
+                }, 600);
+              }}
+              style={{
+                width: isMobile ? "250px" : "300px",
+                border: "1px solid",
+                "list-style-type": "none",
+                padding: "8px",
+                "max-height": "400px"
+              }}
+            >
+              <img
+                src={recipe.image}
+                style={{ width: "100%", height: "50%" }}
+              />
+              <h3 style={{ "text-align": "center", marginTop: "10px" }}>
+                {" "}
+                {recipe.title}
+              </h3>
+              <p style={{ "text-align": "center", marginTop: "10px" }}>
+                {" "}
+                {recipe.ingredients}
+              </p>
+              <p style={{ "text-align": "center", marginTop: "10px" }}>
+                {" "}
+                {recipe.preparationSteps}
+              </p>
+              <p style={{ "text-align": "center", marginTop: "10px" }}>
+                {" "}
+                {recipe?.categories?.map((item, key) => {
+                  return (
+                    <span
+                      style={{
+                        background: "blue",
+                        padding: "8px",
+                        borderRadius: "8px",
+                        color: "white"
+                      }}
+                      key={key}
+                    >
+                      {item}
+                    </span>
+                  );
+                })}
+              </p>
+            </li>
+          ))  :  recipes.map(recipe => (
+            <li
+              key={recipe._id}
+              onClick={async () => {
+                const filterData = await recipes.filter(item => {
+                  return item._id === recipe._id;
+                });
+
+                await localStorage.setItem(
+                  "recipe",
+                  JSON.stringify(filterData[0])
+                );
+                setTimeout(() => {
+                  navigate("/recipe/" + recipe._id);
+                }, 600);
+              }}
+              style={{
+                width: isMobile ? "250px" : "300px",
+                border: "1px solid",
+                "list-style-type": "none",
+                padding: "8px",
+                "max-height": "400px"
+              }}
+            >
+              <img
+                src={recipe.image}
+                style={{ width: "100%", height: "50%" }}
+              />
+              <h3 style={{ "text-align": "center", marginTop: "10px" }}>
+                {" "}
+                {recipe.title}
+              </h3>
+              <p style={{ "text-align": "center", marginTop: "10px" }}>
+                {" "}
+                {recipe.ingredients}
+              </p>
+              <p style={{ "text-align": "center", marginTop: "10px" }}>
+                {" "}
+                {recipe.preparationSteps}
+              </p>
+              <p style={{ "text-align": "center", marginTop: "10px" }}>
+                {" "}
+                {recipe?.categories?.map((item, key) => {
+                  return (
+                    <span
+                      style={{
+                        background: "blue",
+                        padding: "8px",
+                        borderRadius: "8px",
+                        color: "white"
+                      }}
+                      key={key}
+                    >
+                      {item}
+                    </span>
+                  );
+                })}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </>
     </Container>
   );
 }

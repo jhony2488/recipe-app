@@ -5,7 +5,6 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Logout from "./pages/Logout";
 import RecipeCreate from "./pages/RecipeCreate";
-import RecipeList from "./pages/RecipeList";
 import RecipeDetails from "./pages/RecipeDetails";
 import HeaderNavbar from "./components/Nav/HeaderNavbar";
 import FooterNavbar from "./components/Nav/FooterNavbar";
@@ -18,7 +17,6 @@ function App() {
     { path: "/register", element: <Register /> },
     { path: "/login", element: <Login /> },
     { path: "/logout", element: <Logout /> },
-    { path: "/recipes", element: <RecipeList /> },
     { path: "/recipe/:id", element: <RecipeDetails /> },
     { path: "/recipe/create", element: <RecipeCreate /> },
   ];

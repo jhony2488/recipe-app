@@ -75,13 +75,11 @@ export default function HeaderNavbar() {
   const userElements = [
     { to: "/", title: "Home" },
     { to: "/dashboard", title: "My Recipes" },
-    { to: "/recipes", title: "Recipes" },
     { to: "/logout", title: "Logout" }
   ];
 
   const guestElements = [
     { to: "/", title: "Home" },
-    { to: "/recipes", title: "Recipes" },
     { to: "/register", title: "Register" },
     { to: "/login", title: "Login" }
   ];
