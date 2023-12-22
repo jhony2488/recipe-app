@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Form, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { Pencil, Trash } from "@phosphor-icons/react";
 import { useMediaQuery } from "react-responsive";
 import axios from "axios";
 import { useAuthContext } from "../context/AuthContext";
@@ -41,6 +42,20 @@ export default function Dashboard() {
         const itemsVerify = new Set(itemsCategories);
 
         setCategories([...itemsVerify]);
+      });
+  };
+
+  const removeRecipes = async id => {
+    await axios
+      .delete("https://recipe-app-0ddk.onrender.com/recipe/" + id, {
+        headers: {
+          Authorization:
+            "Bearer " +
+            "eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTY4NDQyMzA0NSwiaWF0IjoxNjg0NDIzMDQ1fQ.3GDYc4YE0FhkUqz1vEaMAfASfbJbJll76yDt-h93fNo"
+        }
+      })
+      .then(() => {
+        getRecipes();
       });
   };
 
@@ -112,19 +127,6 @@ export default function Dashboard() {
             ? recipesFilter.map(recipe => (
                 <li
                   key={recipe._id}
-                  onClick={async () => {
-                    const filterData = await recipes.filter(item => {
-                      return item._id === recipe._id;
-                    });
-
-                    await localStorage.setItem(
-                      "recipe",
-                      JSON.stringify(filterData[0])
-                    );
-                    setTimeout(() => {
-                      navigate("/recipe/" + recipe._id);
-                    }, 600);
-                  }}
                   style={{
                     width: isMobile ? "250px" : "300px",
                     border: "1px solid",
@@ -135,21 +137,62 @@ export default function Dashboard() {
                   <img
                     src={recipe.image}
                     style={{ width: "100%", height: "50%" }}
+                    onClick={async () => {
+                      const filterData = await recipes.filter(item => {
+                        return item._id === recipe._id;
+                      });
+
+                      await localStorage.setItem(
+                        "recipe",
+                        JSON.stringify(filterData[0])
+                      );
+                      setTimeout(() => {
+                        navigate("/recipe/" + recipe._id);
+                      }, 600);
+                    }}
                   />
-                  <h3 style={{ "text-align": "center", marginTop: "10px" }}>
+                  <h3
+                    style={{ "text-align": "center", marginTop: "10px" }}
+                    onClick={async () => {
+                      const filterData = await recipes.filter(item => {
+                        return item._id === recipe._id;
+                      });
+
+                      await localStorage.setItem(
+                        "recipe",
+                        JSON.stringify(filterData[0])
+                      );
+                      setTimeout(() => {
+                        navigate("/recipe/" + recipe._id);
+                      }, 600);
+                    }}
+                  >
                     {" "}
                     {recipe.title}
                   </h3>
-                  <p style={{ "text-align": "center", marginTop: "10px" }}>
+                  <p
+                    style={{ "text-align": "center", marginTop: "10px" }}
+                    onClick={async () => {
+                      const filterData = await recipes.filter(item => {
+                        return item._id === recipe._id;
+                      });
+
+                      await localStorage.setItem(
+                        "recipe",
+                        JSON.stringify(filterData[0])
+                      );
+                      setTimeout(() => {
+                        navigate("/recipe/" + recipe._id);
+                      }, 600);
+                    }}
+                  >
                     {" "}
                     {recipe?.categories?.map((item, key) => {
                       return (
                         <span
                           style={{
-                       
                             padding: "8px",
-                            borderRadius: "8px",
-                      
+                            borderRadius: "8px"
                           }}
                           key={key}
                         >
@@ -158,6 +201,36 @@ export default function Dashboard() {
                       );
                     })}
                   </p>
+
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "12px",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      cursor: "pointer"
+                    }}
+                  >
+                    <Pencil
+                      size={32}
+                      onClick={() => {
+                        localStorage.setItem(
+                          "recipeEdit",
+                          JSON.stringify(recipe)
+                        );
+                        setTimeout(() => {
+                          navigate("/recipe/edit/" + recipe._id);
+                        }, 600);
+                      }}
+                    />{" "}
+                    <Trash
+                      color={"red"}
+                      onClick={() => {
+                        removeRecipes(recipe._id);
+                      }}
+                      size={32}
+                    />
+                  </div>
                 </li>
               ))
             : recipes.map(recipe => (
@@ -180,36 +253,37 @@ export default function Dashboard() {
                     width: isMobile ? "250px" : "300px",
                     border: "1px solid",
                     "list-style-type": "none",
-                    padding: "8px",
-                    
+                    padding: "8px"
                   }}
                 >
                   <img
                     src={recipe.image}
-                    style={{ width: "100%", height: "50%" }}
+                    style={{ width: "100%", height: "50%", cursor: "pointer" }}
                   />
-                  <h3 style={{ "text-align": "center", marginTop: "10px" }}>
+                  <h3
+                    style={{
+                      "text-align": "center",
+                      marginTop: "10px",
+                      cursor: "pointer"
+                    }}
+                  >
                     {" "}
                     {recipe.title}
                   </h3>
-                  <p style={{ "text-align": "center", marginTop: "10px" }}>
-                    {" "}
-                    {recipe.ingredients}
-                  </p>
-                  <p style={{ "text-align": "center", marginTop: "10px" }}>
-                    {" "}
-                    {recipe.preparationSteps}
-                  </p>
-                  <p style={{ "text-align": "center", marginTop: "10px" }}>
+                  <p
+                    style={{
+                      "text-align": "center",
+                      marginTop: "10px",
+                      cursor: "pointer"
+                    }}
+                  >
                     {" "}
                     {recipe?.categories?.map((item, key) => {
                       return (
                         <span
                           style={{
-                           
                             padding: "8px",
-                            borderRadius: "8px",
-                         
+                            borderRadius: "8px"
                           }}
                           key={key}
                         >
@@ -218,6 +292,35 @@ export default function Dashboard() {
                       );
                     })}
                   </p>
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "12px",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      cursor: "pointer"
+                    }}
+                  >
+                    <Pencil
+                      size={32}
+                      onClick={() => {
+                        localStorage.setItem(
+                          "recipeEdit",
+                          JSON.stringify(recipe)
+                        );
+                        setTimeout(() => {
+                          navigate("/recipe/edit/" + recipe._id);
+                        }, 600);
+                      }}
+                    />{" "}
+                    <Trash
+                      color={"red"}
+                      onClick={() => {
+                        removeRecipes(recipe._id);
+                      }}
+                      size={32}
+                    />
+                  </div>
                 </li>
               ))}
         </ul>
