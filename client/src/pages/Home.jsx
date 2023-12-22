@@ -115,7 +115,7 @@ export default function Home() {
                 border: "1px solid",
                 "list-style-type": "none",
                 padding: "8px",
-                "max-height": "400px"
+               
               }}
             >
               <img
@@ -165,7 +165,7 @@ export default function Home() {
                 border: "1px solid",
                 "list-style-type": "none",
                 padding: "8px",
-                "max-height": "400px"
+              
               }}
             >
               <img

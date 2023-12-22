@@ -129,8 +129,7 @@ export default function Dashboard() {
                     width: isMobile ? "250px" : "300px",
                     border: "1px solid",
                     "list-style-type": "none",
-                    padding: "8px",
-                    "max-height": "400px"
+                    padding: "8px"
                   }}
                 >
                   <img
@@ -182,7 +181,7 @@ export default function Dashboard() {
                     border: "1px solid",
                     "list-style-type": "none",
                     padding: "8px",
-                    "max-height": "400px"
+                    
                   }}
                 >
                   <img
