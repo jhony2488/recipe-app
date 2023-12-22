@@ -41,7 +41,7 @@ function RecipeList() {
       <p style={{ "text-align": "center", marginTop: "10px" }}>
         {" "}
         {recipe?.categories?.map((item, key)=>{
-            return <span style={{background:'blue', padding: '8px', borderRadius: '8px', color:'white'}} key={key}>{item}</span>
+            return <span style={{ padding: '8px', borderRadius: '8px'}} key={key}>{item}</span>
         })}
       </p>
       <p style={{ "text-align": "center", marginTop: "10px" }}>

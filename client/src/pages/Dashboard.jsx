@@ -142,22 +142,14 @@ export default function Dashboard() {
                   </h3>
                   <p style={{ "text-align": "center", marginTop: "10px" }}>
                     {" "}
-                    {recipe.ingredients}
-                  </p>
-                  <p style={{ "text-align": "center", marginTop: "10px" }}>
-                    {" "}
-                    {recipe.preparationSteps}
-                  </p>
-                  <p style={{ "text-align": "center", marginTop: "10px" }}>
-                    {" "}
                     {recipe?.categories?.map((item, key) => {
                       return (
                         <span
                           style={{
-                            background: "blue",
+                       
                             padding: "8px",
                             borderRadius: "8px",
-                            color: "white"
+                      
                           }}
                           key={key}
                         >
@@ -214,10 +206,10 @@ export default function Dashboard() {
                       return (
                         <span
                           style={{
-                            background: "blue",
+                           
                             padding: "8px",
                             borderRadius: "8px",
-                            color: "white"
+                         
                           }}
                           key={key}
                         >
