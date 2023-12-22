@@ -8,7 +8,7 @@ class AuthService {
   };
 
   register = (username, email, password) => {
-    return axios.post(`https://recipe-app-0ddk.onrender.com/register`, {
+    return axios.post(`https://recipe-app-0ddk.onrender.com/auth/register`, {
       username,
       email,
       password,

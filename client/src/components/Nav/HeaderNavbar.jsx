@@ -73,14 +73,14 @@ import { Navbar, Nav, Container } from "react-bootstrap";
 
 export default function HeaderNavbar() {
   const userElements = [
-    { to: "/", title: "Recipe App" },
-    { to: "/dashboard", title: "Dashboard" },
+    { to: "/", title: "Home" },
+    { to: "/dashboard", title: "My Recipes" },
     { to: "/recipes", title: "Recipes" },
     { to: "/logout", title: "Logout" }
   ];
 
   const guestElements = [
-    { to: "/", title: "Recipe App" },
+    { to: "/", title: "Home" },
     { to: "/recipes", title: "Recipes" },
     { to: "/register", title: "Register" },
     { to: "/login", title: "Login" }
@@ -102,13 +102,6 @@ export default function HeaderNavbar() {
                 key={i}
                 as={Link}
                 to={e.to}
-                onClick={() => {
-                 if(e.title=='Logout'){
-                  localStorage.removeItem("AuthUserId");
-                  localStorage.removeItem("authToken");
-                  localStorage.removeItem("emailAuthUser");
-                 }
-                }}
               >
                 {e.title}
               </Nav.Link>

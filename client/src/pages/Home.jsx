@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 // import { Container, Row, Col, Card, Button } from "react-bootstrap";
 // import { Link } from "react-router-dom";
 
@@ -47,9 +48,11 @@
 // }
 
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import {} from "react-router-dom";
 
 export default function Home() {
+  const navigate = useNavigate();
   return (
     <Container className="py-5">
       <Link to="/recipe/create">create recipe</Link>
@@ -72,7 +75,14 @@ export default function Home() {
                 Explore this week's featured recipe and add a new twist to your
                 meal plans.
               </Card.Text>
-              <Button variant="primary">Learn More</Button>
+              <Button
+                variant="primary"
+                onClick={() => {
+                  navigate("/login");
+                }}
+              >
+                Learn More
+              </Button>
             </Card.Body>
           </Card>
         </Col>
@@ -85,7 +95,14 @@ export default function Home() {
                 Share your own recipes and connect with food enthusiasts from
                 around the globe.
               </Card.Text>
-              <Button variant="primary">Sign Up</Button>
+              <Button
+                variant="primary"
+                onClick={() => {
+                  navigate("/register");
+                }}
+              >
+                Sign Up
+              </Button>
             </Card.Body>
           </Card>
         </Col>
