@@ -104,7 +104,8 @@ export default function Dashboard() {
             gap: "12px",
             marginBottom: "32px",
             marginTop: "32px",
-            "min-height": "80vh"
+            "min-height": "80vh",
+            cursor: "pointer"
           }}
         >
           {recipesFilter.length > 0

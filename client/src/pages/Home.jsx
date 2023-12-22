@@ -90,7 +90,8 @@ export default function Home() {
             "flex-wrap": "wrap",
             gap: "12px",
             marginBottom: "32px",
-            "min-height": "80vh"
+            "min-height": "80vh",
+            cursor: "pointer"
           }}
         >
           {recipesFilter.length > 0 ? recipesFilter.map(recipe => (
