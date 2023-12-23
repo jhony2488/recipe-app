@@ -27,16 +27,16 @@ function RecipeList() {
         }}
       >
         {" "}
-        {recipe.title}{" "}
+       Title: {recipe.title}{" "}
       </h2>
       <h3 style={{ "text-align": "center", marginTop: "10px" }}> </h3>
       <p style={{ "text-align": "center", marginTop: "10px" }}>
         {" "}
-        {recipe.ingredients}
+        Ingredients: {recipe.ingredients}
       </p>
       <p style={{ "text-align": "center", marginTop: "10px" }}>
         {" "}
-        {recipe.preparationSteps}
+      Preparations Steps: {recipe.preparationSteps}
       </p>
       <p style={{ "text-align": "center", marginTop: "10px" }}>
         {" "}

@@ -116,7 +116,8 @@ export default function Home() {
                     width: isMobile ? "250px" : "300px",
                     border: "1px solid",
                     "list-style-type": "none",
-                    padding: "8px"
+                    padding: "8px",
+                    maxHeight: '300px'
                   }}
                 >
                   <img
@@ -235,7 +236,8 @@ export default function Home() {
                     width: isMobile ? "250px" : "300px",
                     border: "1px solid",
                     "list-style-type": "none",
-                    padding: "8px"
+                    padding: "8px",
+                    maxHeight: '300px'
                   }}
                 >
                   <img

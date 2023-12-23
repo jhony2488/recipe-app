@@ -132,7 +132,8 @@ export default function Dashboard() {
                     width: isMobile ? "250px" : "300px",
                     border: "1px solid",
                     "list-style-type": "none",
-                    padding: "8px"
+                    padding: "8px",
+                    maxHeight: '300px'
                   }}
                 >
                   <img
@@ -238,35 +239,49 @@ export default function Dashboard() {
             : recipes.map(recipe => (
                 <li
                   key={recipe._id}
-                  onClick={async () => {
-                    const filterData = await recipes.filter(item => {
-                      return item._id === recipe._id;
-                    });
-
-                    await localStorage.setItem(
-                      "recipe",
-                      JSON.stringify(filterData[0])
-                    );
-                    setTimeout(() => {
-                      navigate("/recipe/" + recipe._id);
-                    }, 600);
-                  }}
                   style={{
                     width: isMobile ? "250px" : "300px",
                     border: "1px solid",
                     "list-style-type": "none",
-                    padding: "8px"
+                    padding: "8px",
+                    maxHeight: '300px'
                   }}
                 >
                   <img
                     src={recipe.image}
                     style={{ width: "100%", height: "50%", cursor: "pointer" }}
+                    onClick={async () => {
+                      const filterData = await recipes.filter(item => {
+                        return item._id === recipe._id;
+                      });
+
+                      await localStorage.setItem(
+                        "recipe",
+                        JSON.stringify(filterData[0])
+                      );
+                      setTimeout(() => {
+                        navigate("/recipe/" + recipe._id);
+                      }, 600);
+                    }}
                   />
                   <h3
                     style={{
                       "text-align": "center",
                       marginTop: "10px",
                       cursor: "pointer"
+                    }}
+                    onClick={async () => {
+                      const filterData = await recipes.filter(item => {
+                        return item._id === recipe._id;
+                      });
+
+                      await localStorage.setItem(
+                        "recipe",
+                        JSON.stringify(filterData[0])
+                      );
+                      setTimeout(() => {
+                        navigate("/recipe/" + recipe._id);
+                      }, 600);
                     }}
                   >
                     {" "}
@@ -278,6 +293,19 @@ export default function Dashboard() {
                       marginTop: "10px",
                       cursor: "pointer"
                     }}
+                    onClick={async () => {
+                      const filterData = await recipes.filter(item => {
+                        return item._id === recipe._id;
+                      });
+
+                      await localStorage.setItem(
+                        "recipe",
+                        JSON.stringify(filterData[0])
+                      );
+                      setTimeout(() => {
+                        navigate("/recipe/" + recipe._id);
+                      }, 600);
+                    }}
                   >
                     {" "}
                     {recipe?.categories?.map((item, key) => {
@@ -286,7 +314,7 @@ export default function Dashboard() {
                           style={{
                             padding: "8px",
                             borderRadius: "8px"
-                          }}
+                          }} 
                           key={key}
                         >
                           {item}
